@@ -13,8 +13,6 @@ const CustomButton = ({
   loading,
   onPress,
 }) => {
-  const [focused, setFocused] = useState(false);
-
   const getBgColor = () => {
     if (disabled) {
       return colors.grey;

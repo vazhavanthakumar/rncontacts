@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
-import {View, Text, textInput} from 'react-native';
-import {TextInput} from 'react-native-gesture-handler';
+import {View, Text, TextInput} from 'react-native';
 import styles from '../input/styles';
 import colors from '../../../assets/themes/colors';
 
@@ -52,7 +51,7 @@ const Input = ({
 
         <TextInput
           style={[styles.textInput, style]}
-          onChangeText={text => onChangeText(text)}
+          onChangeText={text => onChangeText && onChangeText(text)}
           value={value}
           onFocus={() => {
             setFocused(true);
