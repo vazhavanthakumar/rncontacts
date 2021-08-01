@@ -7,7 +7,7 @@ import styles from './styles';
 import {useNavigation} from '@react-navigation/native';
 import {LOGIN} from '../../constants/RouteNames';
 
-const Register = () => {
+const Register = ({onSubmit, onChange, form, errors}) => {
   const {navigate} = useNavigation();
 
   return (
@@ -27,21 +27,41 @@ const Register = () => {
           label="Username"
           placeholder="Enter username"
           iconPosition="left"
+          onChangeText={value => {
+            onChange({name: 'userName', value});
+          }}
+          error={errors.userName}
         />
 
         <Input
           label="First name"
           placeholder="Enter first name"
           iconPosition="left"
+          onChangeText={value => {
+            onChange({name: 'firstName', value});
+          }}
+          error={errors.firstName}
         />
 
         <Input
           label="Last name"
           placeholder="Enter last name"
           iconPosition="left"
+          onChangeText={value => {
+            onChange({name: 'lastName', value});
+          }}
+          error={errors.lastName}
         />
 
-        <Input label="Email" placeholder="Enter email" iconPosition="left" />
+        <Input
+          label="Email"
+          placeholder="Enter email"
+          iconPosition="left"
+          onChangeText={value => {
+            onChange({name: 'email', value});
+          }}
+          error={errors.email}
+        />
 
         <Input
           label="Password"
@@ -49,9 +69,13 @@ const Register = () => {
           secureTextEntry={true}
           icon={<Text>Show</Text>}
           iconPosition="right"
+          onChangeText={value => {
+            onChange({name: 'password', value});
+          }}
+          error={errors.password}
         />
 
-        <CustomButton primary title="Submit" />
+        <CustomButton onPress={onSubmit} primary title="Submit" />
 
         <View style={styles.createSection}>
           <Text style={styles.infoText}>Already have an Account?</Text>

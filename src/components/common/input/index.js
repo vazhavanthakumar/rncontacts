@@ -26,12 +26,11 @@ const Input = ({
   };
 
   const getBorderColor = () => {
-    if (focused) {
-      return colors.primary;
-    }
-
     if (error) {
       return colors.danger;
+    }
+    if (focused) {
+      return colors.primary;
     } else {
       return colors.grey;
     }
@@ -51,7 +50,7 @@ const Input = ({
 
         <TextInput
           style={[styles.textInput, style]}
-          onChangeText={text => onChangeText && onChangeText(text)}
+          onChangeText={text => onChangeText(text)}
           value={value}
           onFocus={() => {
             setFocused(true);
