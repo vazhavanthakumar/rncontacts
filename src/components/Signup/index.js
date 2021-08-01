@@ -5,9 +5,9 @@ import Input from '../../components/common/input';
 import CustomButton from '../../components/common/CustomButton';
 import styles from './styles';
 import {useNavigation} from '@react-navigation/native';
-import {REGISTER} from '../../constants/RouteNames';
+import {LOGIN} from '../../constants/RouteNames';
 
-const Index = () => {
+const Register = () => {
   const {navigate} = useNavigation();
 
   return (
@@ -19,7 +19,7 @@ const Index = () => {
 
       <View>
         <Text style={styles.title}>Welcome to RNContacts</Text>
-        <Text style={styles.subTitle}>Please login here</Text>
+        <Text style={styles.subTitle}>Create a free account</Text>
 
         <View style={styles.form} />
 
@@ -28,6 +28,20 @@ const Index = () => {
           placeholder="Enter username"
           iconPosition="left"
         />
+
+        <Input
+          label="First name"
+          placeholder="Enter first name"
+          iconPosition="left"
+        />
+
+        <Input
+          label="Last name"
+          placeholder="Enter last name"
+          iconPosition="left"
+        />
+
+        <Input label="Email" placeholder="Enter email" iconPosition="left" />
 
         <Input
           label="Password"
@@ -40,12 +54,12 @@ const Index = () => {
         <CustomButton primary title="Submit" />
 
         <View style={styles.createSection}>
-          <Text style={styles.infoText}>Need a new Account?</Text>
+          <Text style={styles.infoText}>Already have an Account?</Text>
           <TouchableOpacity
             onPress={() => {
-              navigate(REGISTER);
+              navigate(LOGIN);
             }}>
-            <Text style={styles.linkBtn}>Register</Text>
+            <Text style={styles.linkBtn}>Login</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -53,4 +67,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default Register;
