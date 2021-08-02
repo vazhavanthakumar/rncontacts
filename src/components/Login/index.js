@@ -6,6 +6,7 @@ import CustomButton from '../../components/common/CustomButton';
 import styles from './styles';
 import {useNavigation} from '@react-navigation/native';
 import {REGISTER} from '../../constants/RouteNames';
+import colors from '../../assets/themes/colors';
 
 const Index = () => {
   const {navigate} = useNavigation();
@@ -26,12 +27,14 @@ const Index = () => {
         <Input
           label="Username"
           placeholder="Enter username"
+          placeholderTextColor={colors.grey}
           iconPosition="left"
         />
 
         <Input
           label="Password"
           placeholder="Enter password"
+          placeholderTextColor={colors.grey}
           secureTextEntry={true}
           icon={<Text>Show</Text>}
           iconPosition="right"

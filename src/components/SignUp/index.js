@@ -6,6 +6,7 @@ import CustomButton from '../../components/common/CustomButton';
 import styles from './styles';
 import {useNavigation} from '@react-navigation/native';
 import {LOGIN} from '../../constants/RouteNames';
+import colors from '../../assets/themes/colors';
 
 const Register = ({onSubmit, onChange, form, errors}) => {
   const {navigate} = useNavigation();
@@ -26,6 +27,7 @@ const Register = ({onSubmit, onChange, form, errors}) => {
         <Input
           label="Username"
           placeholder="Enter username"
+          placeholderTextColor={colors.grey}
           iconPosition="left"
           onChangeText={value => {
             onChange({name: 'userName', value});
@@ -35,6 +37,7 @@ const Register = ({onSubmit, onChange, form, errors}) => {
 
         <Input
           label="First name"
+          placeholderTextColor={colors.grey}
           placeholder="Enter first name"
           iconPosition="left"
           onChangeText={value => {
@@ -46,6 +49,7 @@ const Register = ({onSubmit, onChange, form, errors}) => {
         <Input
           label="Last name"
           placeholder="Enter last name"
+          placeholderTextColor={colors.grey}
           iconPosition="left"
           onChangeText={value => {
             onChange({name: 'lastName', value});
@@ -56,6 +60,7 @@ const Register = ({onSubmit, onChange, form, errors}) => {
         <Input
           label="Email"
           placeholder="Enter email"
+          placeholderTextColor={colors.grey}
           iconPosition="left"
           onChangeText={value => {
             onChange({name: 'email', value});
@@ -66,6 +71,7 @@ const Register = ({onSubmit, onChange, form, errors}) => {
         <Input
           label="Password"
           placeholder="Enter password"
+          placeholderTextColor={colors.grey}
           secureTextEntry={true}
           icon={<Text>Show</Text>}
           iconPosition="right"

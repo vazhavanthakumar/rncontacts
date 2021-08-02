@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import RegisterComponent from '../../components/Signup';
+import RegisterComponent from '../../components/SignUp';
 
 const SignUp = () => {
   const [form, setForm] = useState({});

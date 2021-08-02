@@ -50,7 +50,7 @@ const Input = ({
 
         <TextInput
           style={[styles.textInput, style]}
-          onChangeText={text => onChangeText(text)}
+          onChangeText={text => onChangeText && onChangeText(text)}
           value={value}
           onFocus={() => {
             setFocused(true);
