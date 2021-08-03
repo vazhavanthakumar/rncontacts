@@ -7,6 +7,7 @@ import styles from './styles';
 import {useNavigation} from '@react-navigation/native';
 import {REGISTER} from '../../constants/RouteNames';
 import colors from '../../assets/themes/colors';
+import Message from '../common/Message';
 
 const Index = () => {
   const {navigate} = useNavigation();
@@ -21,6 +22,39 @@ const Index = () => {
       <View>
         <Text style={styles.title}>Welcome to RNContacts</Text>
         <Text style={styles.subTitle}>Please login here</Text>
+
+        <Message
+          retry
+          retryFn={() => {
+            console.log('log ', 111);
+          }}
+          primary
+          onDismiss={() => {
+            console.log('dismiss ');
+          }}
+          message="Invalid login credentials"
+        />
+        <Message
+          onDismiss={() => {
+            console.log('dismiss ');
+          }}
+          danger
+          message="Invalid login credentials"
+        />
+        <Message
+          onDismiss={() => {
+            console.log('dismiss ');
+          }}
+          info
+          message="Invalid login credentials"
+        />
+        <Message
+          onDismiss={() => {
+            console.log('dismiss ');
+          }}
+          success
+          message="Invalid login credentials"
+        />
 
         <View style={styles.form} />
 
