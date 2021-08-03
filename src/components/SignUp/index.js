@@ -8,7 +8,7 @@ import {useNavigation} from '@react-navigation/native';
 import {LOGIN} from '../../constants/RouteNames';
 import colors from '../../assets/themes/colors';
 
-const Register = ({onSubmit, onChange, form, errors}) => {
+const Register = ({onSubmit, loading, error, onChange, form, errors}) => {
   const {navigate} = useNavigation();
 
   return (
@@ -21,9 +21,7 @@ const Register = ({onSubmit, onChange, form, errors}) => {
       <View>
         <Text style={styles.title}>Welcome to RNContacts</Text>
         <Text style={styles.subTitle}>Create a free account</Text>
-
         <View style={styles.form} />
-
         <Input
           label="Username"
           placeholder="Enter username"
@@ -34,7 +32,6 @@ const Register = ({onSubmit, onChange, form, errors}) => {
           }}
           error={errors.userName}
         />
-
         <Input
           label="First name"
           placeholderTextColor={colors.grey}
@@ -45,7 +42,6 @@ const Register = ({onSubmit, onChange, form, errors}) => {
           }}
           error={errors.firstName}
         />
-
         <Input
           label="Last name"
           placeholder="Enter last name"
@@ -56,7 +52,6 @@ const Register = ({onSubmit, onChange, form, errors}) => {
           }}
           error={errors.lastName}
         />
-
         <Input
           label="Email"
           placeholder="Enter email"
@@ -67,7 +62,6 @@ const Register = ({onSubmit, onChange, form, errors}) => {
           }}
           error={errors.email}
         />
-
         <Input
           label="Password"
           placeholder="Enter password"
@@ -81,8 +75,13 @@ const Register = ({onSubmit, onChange, form, errors}) => {
           error={errors.password}
         />
 
-        <CustomButton onPress={onSubmit} primary title="Submit" />
-
+        <CustomButton
+          loading={loading}
+          onPress={onSubmit}
+          primary
+          disabled={loading}
+          title="Submit"
+        />
         <View style={styles.createSection}>
           <Text style={styles.infoText}>Already have an Account?</Text>
           <TouchableOpacity

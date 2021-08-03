@@ -1,16 +1,36 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
 import RegisterComponent from '../../components/SignUp';
-import axiosInstance from '../../helpers/axiosInterceptor';
+import register, {clearAuthState} from '../../context/actions/auth/register';
+import {GlobalContext} from '../../context/Provider';
+import validator from 'validator';
+import {useNavigation} from '@react-navigation/native';
+import {LOGIN} from '../../constants/RouteNames';
+import {useFocusEffect} from '@react-navigation/native';
 
 const SignUp = () => {
+  const {navigate} = useNavigation();
   const [form, setForm] = useState({});
   const [errors, setErrors] = useState({});
+  const {
+    authDispatch,
+    authState: {error, loading, data},
+  } = useContext(GlobalContext);
+
+  console.log('data :>> ', data, error);
 
   React.useEffect(() => {
-    axiosInstance.get('/contacts').catch(err => {
-      console.log(' error', err.response);
-    });
-  }, []);
+    if (data) {
+      navigate(LOGIN);
+    }
+  }, [data]);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      if (data || error) {
+        clearAuthState()(authDispatch);
+      }
+    }, [data, error]),
+  );
 
   const onChange = ({name, value}) => {
     setForm({...form, [name]: value});
@@ -19,6 +39,10 @@ const SignUp = () => {
       if (name === 'password' && value.length < 6) {
         setErrors(prev => {
           return {...prev, [name]: 'This field requires min 6 characters'};
+        });
+      } else if (name === 'email' && !validator.isEmail(value)) {
+        setErrors(prev => {
+          return {...prev, [name]: 'Email is not valid'};
         });
       } else {
         setErrors(prev => {
@@ -33,9 +57,6 @@ const SignUp = () => {
   };
 
   const onSubmit = () => {
-    //validation goes here
-    console.log('form', form);
-
     if (!form.userName) {
       setErrors(prev => {
         return {...prev, userName: 'Please add a username'};
@@ -65,6 +86,14 @@ const SignUp = () => {
         return {...prev, password: 'Please add a password'};
       });
     }
+
+    if (
+      Object.values(form).length === 5 &&
+      Object.values(form).every(item => item.trim().length > 0) &&
+      Object.values(errors).every(item => !item)
+    ) {
+      register(form)(authDispatch);
+    }
   };
 
   return (
@@ -73,6 +102,8 @@ const SignUp = () => {
       onChange={onChange}
       form={form}
       errors={errors}
+      error={error}
+      loading={loading}
     />
   );
 };
