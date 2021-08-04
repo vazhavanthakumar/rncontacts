@@ -1,46 +1,32 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
-  REGISTER_FAIL,
-  REGISTER_LOADING,
-  REGISTER_SUCCESS,
-  CLEAR_AUTH_STATE,
+  LOGIN_SUCCESS,
+  LOGIN_FAIL,
+  LOGIN_LOADING,
 } from '../../../constants/actionTypes';
 import axiosInstance from '../../../helpers/axiosInterceptor';
 
-export const clearAuthState = () => dispatch => {
-  dispatch({
-    type: CLEAR_AUTH_STATE,
-  });
-};
-
-export default ({
-    email,
-    password,
-    userName: username,
-    firstName: first_name,
-    lastName: last_name,
-  }) =>
+export default ({password, userName: username}) =>
   dispatch => {
-    dispatch({type: REGISTER_LOADING});
+    dispatch({type: LOGIN_LOADING});
 
     axiosInstance
-      .post('auth/register', {
-        email,
-        password,
-        username,
-        first_name,
-        last_name,
-      })
+      .post('auth/login', {password, username})
       .then(response => {
         dispatch({
-          type: REGISTER_SUCCESS,
+          type: LOGIN_SUCCESS,
           payload: response.data,
         });
+
+        AsyncStorage.setItem('token', response.data.token);
+        AsyncStorage.setItem('user', JSON.stringify(response.data.user));
+
         console.log('resonse :>> ', response.data);
       })
       .catch(error => {
         console.log('errors :>dsaaasfasd> ', error);
         dispatch({
-          type: REGISTER_FAIL,
+          type: LOGIN_FAIL,
           payload: error.response
             ? error.response.data
             : {error: 'Something went wrong, try agin'},

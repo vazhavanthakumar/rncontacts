@@ -7,10 +7,10 @@ import styles from './styles';
 import {useNavigation} from '@react-navigation/native';
 import {LOGIN} from '../../constants/RouteNames';
 import colors from '../../assets/themes/colors';
+import Message from '../../components/common/Message';
 
 const Register = ({onSubmit, loading, error, onChange, form, errors}) => {
   const {navigate} = useNavigation();
-
   return (
     <Container>
       <Image
@@ -22,6 +22,9 @@ const Register = ({onSubmit, loading, error, onChange, form, errors}) => {
         <Text style={styles.title}>Welcome to RNContacts</Text>
         <Text style={styles.subTitle}>Create a free account</Text>
         <View style={styles.form} />
+        {error?.error && (
+          <Message danger message={error?.error} retry retryFn={() => {}} />
+        )}
         <Input
           label="Username"
           placeholder="Enter username"
@@ -74,7 +77,7 @@ const Register = ({onSubmit, loading, error, onChange, form, errors}) => {
           }}
           error={errors.password}
         />
-
+        {console.log('error :>> ', error)}
         <CustomButton
           loading={loading}
           onPress={onSubmit}

@@ -9,7 +9,7 @@ import {REGISTER} from '../../constants/RouteNames';
 import colors from '../../assets/themes/colors';
 import Message from '../common/Message';
 
-const Index = () => {
+const Index = ({loading, error, errors, onChange, onSubmit}) => {
   const {navigate} = useNavigation();
 
   return (
@@ -23,46 +23,20 @@ const Index = () => {
         <Text style={styles.title}>Welcome to RNContacts</Text>
         <Text style={styles.subTitle}>Please login here</Text>
 
-        <Message
-          retry
-          retryFn={() => {
-            console.log('log ', 111);
-          }}
-          primary
-          onDismiss={() => {
-            console.log('dismiss ');
-          }}
-          message="Invalid login credentials"
-        />
-        <Message
-          onDismiss={() => {
-            console.log('dismiss ');
-          }}
-          danger
-          message="Invalid login credentials"
-        />
-        <Message
-          onDismiss={() => {
-            console.log('dismiss ');
-          }}
-          info
-          message="Invalid login credentials"
-        />
-        <Message
-          onDismiss={() => {
-            console.log('dismiss ');
-          }}
-          success
-          message="Invalid login credentials"
-        />
-
         <View style={styles.form} />
+        {console.log(`error123`, error?.error)}
+        {console.log(`error123`, error)}
+        {error?.error && <Message danger onDismiss message={error?.error} />}
 
         <Input
           label="Username"
           placeholder="Enter username"
           placeholderTextColor={colors.grey}
           iconPosition="left"
+          onChangeText={value => {
+            onChange({name: 'userName', value});
+          }}
+          error={errors.userName}
         />
 
         <Input
@@ -72,9 +46,19 @@ const Index = () => {
           secureTextEntry={true}
           icon={<Text>Show</Text>}
           iconPosition="right"
+          onChangeText={value => {
+            onChange({name: 'password', value});
+          }}
+          error={errors.password}
         />
 
-        <CustomButton primary title="Submit" />
+        <CustomButton
+          loading={loading}
+          disabled={loading}
+          primary
+          title="Submit"
+          onPress={onSubmit}
+        />
 
         <View style={styles.createSection}>
           <Text style={styles.infoText}>Need a new Account?</Text>
