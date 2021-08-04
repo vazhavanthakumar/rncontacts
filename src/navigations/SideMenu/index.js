@@ -5,6 +5,8 @@ import Container from '../../components/common/Container';
 import {SETTINGS} from '../../constants/RouteNames';
 import logoutUser from '../../context/actions/auth/logoutUser';
 import styles from './styles';
+import Icon from '../../components/common/icon/index';
+import MaterialIcons from '../../components/common/icon/index';
 
 const SideMenu = ({navigation, authDispatch}) => {
   const handleLogout = () => {
@@ -25,14 +27,14 @@ const SideMenu = ({navigation, authDispatch}) => {
 
   const menuItems = [
     {
-      icon: <Text>T</Text>,
+      icon: <Icon type="ionicon" name="settings-outline" />,
       name: 'Settings',
       onPress: () => {
         navigation.navigate(SETTINGS);
       },
     },
     {
-      icon: <Text>T</Text>,
+      icon: <MaterialIcons type="material" name="logout" />,
       name: 'Logout',
       onPress: () => handleLogout(),
     },
