@@ -3,9 +3,10 @@ import {SafeAreaView, Image, Text, View, Alert} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import Container from '../../components/common/Container';
 import {SETTINGS} from '../../constants/RouteNames';
+import logoutUser from '../../context/actions/auth/logoutUser';
 import styles from './styles';
 
-const SideMenu = ({navigation}) => {
+const SideMenu = ({navigation, authDispatch}) => {
   const handleLogout = () => {
     navigation.toggleDrawer();
     Alert.alert('Logout!', 'Are you sure you want to log out?', [
@@ -15,7 +16,9 @@ const SideMenu = ({navigation}) => {
       },
       {
         text: 'Ok',
-        onPress: () => {},
+        onPress: () => {
+          logoutUser()(authDispatch);
+        },
       },
     ]);
   };
