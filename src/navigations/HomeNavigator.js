@@ -10,12 +10,19 @@ import Contacts from '../screens/Contacts/index';
 import ContactsDetails from '../screens/ContactDetails/index';
 import CreateContacts from '../screens/CreateContact/index';
 import Settings from '../screens/Settings/index';
+import {Text} from 'react-native';
 
 const HomeNavigator = () => {
   const HomeStack = createStackNavigator();
   return (
     <HomeStack.Navigator initialRouteName={CONTACTS_LIST}>
-      <HomeStack.Screen name={CONTACTS_LIST} component={Contacts} />
+      <HomeStack.Screen
+        name={CONTACTS_LIST}
+        component={Contacts}
+        options={{
+          headerTitleAlign: 'center',
+        }}
+      />
       <HomeStack.Screen name={CONTACTS_DETAILS} component={ContactsDetails} />
       <HomeStack.Screen name={CREATE_CONTACT} component={CreateContacts} />
       <HomeStack.Screen name={SETTINGS} component={Settings} />
