@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {Text, Image, View, TouchableOpacity} from 'react-native';
 import Container from '../../components/common/Container';
 import Input from '../../components/common/input';
@@ -10,6 +10,7 @@ import colors from '../../assets/themes/colors';
 import Message from '../common/Message';
 
 const Index = ({loading, error, errors, onChange, onSubmit}) => {
+  const [isSecureEntry, setSecureEntry] = useState(true);
   const {navigate} = useNavigation();
 
   return (
@@ -43,8 +44,12 @@ const Index = ({loading, error, errors, onChange, onSubmit}) => {
           label="Password"
           placeholder="Enter password"
           placeholderTextColor={colors.grey}
-          secureTextEntry={true}
-          icon={<Text>Show</Text>}
+          secureTextEntry={isSecureEntry}
+          icon={
+            <TouchableOpacity onPress={() => setSecureEntry(prev => !prev)}>
+              <Text>{isSecureEntry ? 'hide' : 'show'}</Text>
+            </TouchableOpacity>
+          }
           iconPosition="right"
           onChangeText={value => {
             onChange({name: 'password', value});
