@@ -53,7 +53,10 @@ const Message = ({
                   setDismissed(true);
                   onDismiss();
                 }}>
-                <Text style={{color: colors.white}}>X</Text>
+                <Text
+                  style={{color: colors.white, paddingStart: 5, paddingEnd: 5}}>
+                  X
+                </Text>
               </TouchableOpacity>
             )}
           </View>

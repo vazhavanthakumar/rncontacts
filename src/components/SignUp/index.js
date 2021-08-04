@@ -10,7 +10,7 @@ import colors from '../../assets/themes/colors';
 import Message from '../../components/common/Message';
 
 const Register = ({onSubmit, loading, error, onChange, form, errors}) => {
-  const [isSecureEntry, setSecureEntry] = useState(true);
+  const [isSecureEntry, setSecureEntry] = useState(false);
   const {navigate} = useNavigation();
   return (
     <Container>
@@ -73,7 +73,7 @@ const Register = ({onSubmit, loading, error, onChange, form, errors}) => {
           secureTextEntry={isSecureEntry}
           icon={
             <TouchableOpacity onPress={() => setSecureEntry(prev => !prev)}>
-              <Text>{isSecureEntry ? 'hide' : 'show'}</Text>
+              <Text>{isSecureEntry ? 'show' : 'hide'}</Text>
             </TouchableOpacity>
           }
           iconPosition="right"

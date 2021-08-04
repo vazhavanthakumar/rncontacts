@@ -9,8 +9,16 @@ import {REGISTER} from '../../constants/RouteNames';
 import colors from '../../assets/themes/colors';
 import Message from '../common/Message';
 
-const Index = ({loading, error, errors, onChange, onSubmit}) => {
-  const [isSecureEntry, setSecureEntry] = useState(true);
+const Index = ({
+  justSignedUp,
+  loading,
+  error,
+  errors,
+  onChange,
+  onSubmit,
+  form,
+}) => {
+  const [isSecureEntry, setSecureEntry] = useState(false);
   const {navigate} = useNavigation();
 
   return (
@@ -25,14 +33,20 @@ const Index = ({loading, error, errors, onChange, onSubmit}) => {
         <Text style={styles.subTitle}>Please login here</Text>
 
         <View style={styles.form} />
-        {console.log(`error123`, error?.error)}
-        {console.log(`error123`, error)}
+        {justSignedUp && (
+          <Message
+            success
+            onDismiss={() => {}}
+            message="Account created successfully"
+          />
+        )}
         {error?.error && <Message danger onDismiss message={error?.error} />}
 
         <Input
           label="Username"
           placeholder="Enter username"
           placeholderTextColor={colors.grey}
+          value={form.userName || null}
           iconPosition="left"
           onChangeText={value => {
             onChange({name: 'userName', value});
@@ -47,7 +61,7 @@ const Index = ({loading, error, errors, onChange, onSubmit}) => {
           secureTextEntry={isSecureEntry}
           icon={
             <TouchableOpacity onPress={() => setSecureEntry(prev => !prev)}>
-              <Text>{isSecureEntry ? 'hide' : 'show'}</Text>
+              <Text>{isSecureEntry ? 'show' : 'hide'}</Text>
             </TouchableOpacity>
           }
           iconPosition="right"

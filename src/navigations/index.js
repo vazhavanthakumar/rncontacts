@@ -28,8 +28,6 @@ const AppNavContainer = () => {
     }
   };
 
-  console.log('isAuthenticated :>> ', isAuthenticated, isLoggedIn);
-
   useEffect(() => {
     getUser();
   }, [isLoggedIn]);

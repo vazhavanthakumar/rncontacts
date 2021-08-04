@@ -19,7 +19,8 @@ export default ({
     firstName: first_name,
     lastName: last_name,
   }) =>
-  dispatch => {
+  dispatch =>
+  onSuccess => {
     dispatch({type: REGISTER_LOADING});
 
     axiosInstance
@@ -35,6 +36,7 @@ export default ({
           type: REGISTER_SUCCESS,
           payload: response.data,
         });
+        onSuccess(response.data);
         console.log('resonse :>> ', response.data);
       })
       .catch(error => {
