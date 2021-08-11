@@ -7,12 +7,15 @@ import {
   ActivityIndicator,
   Image,
 } from 'react-native';
+import {Colors} from 'react-native/Libraries/NewAppScreen';
 import colors from '../../assets/themes/colors';
 import AppModal from '../common/AppModal';
 import CustomButton from '../common/CustomButton';
 import Icon from '../common/icon';
 import Message from '../common/Message';
 import styles from './styles';
+import Container from '../common/Container';
+import {color} from 'react-native-reanimated';
 
 const ContactsComponent = ({modalVisible, setModalVisible, data, loading}) => {
   const listEmptyComponent = () => {
@@ -38,26 +41,54 @@ const ContactsComponent = ({modalVisible, setModalVisible, data, loading}) => {
           ) : (
             <View
               style={{
+                flexDirection: 'row',
                 width: 45,
+                justifyContent: 'center',
                 height: 45,
+                alignItems: 'center',
                 backgroundColor: colors.grey,
-              }}></View>
+                borderRadius: 45,
+              }}>
+              {first_name ? (
+                <Text
+                  style={[
+                    styles.name,
+                    {color: colors.white, fontWeight: 'bold'},
+                  ]}>
+                  {first_name[0]}
+                </Text>
+              ) : null}
+
+              {last_name ? (
+                <Text
+                  style={[
+                    styles.name,
+                    {color: colors.white, fontWeight: 'bold'},
+                  ]}>
+                  {last_name[0]}
+                </Text>
+              ) : null}
+            </View>
           )}
 
-          <View style={{flexDirection: 'row'}}>
-            <Text> {first_name}</Text>
-            <Text> {last_name}</Text>
+          <View style={{paddingLeft: 20}}>
+            <View style={{flexDirection: 'row'}}>
+              <Text style={styles.name}>{first_name} </Text>
+              <Text style={styles.name}>{last_name}</Text>
+            </View>
+            <Text style={styles.phoneNumber}>+91 {phone_number}</Text>
           </View>
-
-          <Text>{phone_number}</Text>
         </View>
-        <Icon name="right" type="ant" />
+        <Icon name="right" type="ant" size={16} color={colors.grey} />
       </TouchableOpacity>
     );
   };
 
   return (
-    <View>
+    <View
+      style={{
+        backgroundColor: colors.white,
+      }}>
       <AppModal
         title="My Profile"
         // modalFooter={<></>}
@@ -77,14 +108,28 @@ const ContactsComponent = ({modalVisible, setModalVisible, data, loading}) => {
       )}
 
       {!loading && (
-        <View style={{paddingVertical: 20}}>
+        <Container
+          style={{
+            padding: 0,
+            paddingVertical: 10,
+          }}>
           <FlatList
             data={data}
             renderItem={renderItem}
             keyExtractor={item => String(item.id)}
+            ItemSeparatorComponent={() => (
+              <View
+                style={{
+                  height: 0.4,
+                  backgroundColor: colors.grey,
+                  marginLeft: 20,
+                  marginRight: 20,
+                }}></View>
+            )}
             ListEmptyComponent={listEmptyComponent}
+            ListFooterComponent={<View style={{height: 50}}></View>}
           />
-        </View>
+        </Container>
       )}
     </View>
   );

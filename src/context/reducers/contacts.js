@@ -27,7 +27,7 @@ const contacts = (state, {type, payload}) => {
         },
       };
 
-    case GET_CONTACTS_SUCCESS:
+    case GET_CONTACTS_FAIL:
       return {
         ...state,
         getContacts: {
