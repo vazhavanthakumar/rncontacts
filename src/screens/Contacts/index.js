@@ -12,7 +12,7 @@ const Contacts = () => {
   const {
     contactsDispatch,
     contactsState: {
-      getContacts: {data, loading},
+      getContacts: {data, loading, error},
     },
   } = useContext(GlobalContext);
 

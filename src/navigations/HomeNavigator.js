@@ -23,9 +23,27 @@ const HomeNavigator = () => {
           headerTitleAlign: 'center',
         }}
       />
-      <HomeStack.Screen name={CONTACTS_DETAILS} component={ContactsDetails} />
-      <HomeStack.Screen name={CREATE_CONTACT} component={CreateContacts} />
-      <HomeStack.Screen name={SETTINGS} component={Settings} />
+      <HomeStack.Screen
+        name={CONTACTS_DETAILS}
+        component={ContactsDetails}
+        options={{
+          headerTitleAlign: 'center',
+        }}
+      />
+      <HomeStack.Screen
+        name={CREATE_CONTACT}
+        component={CreateContacts}
+        options={{
+          headerTitleAlign: 'center',
+        }}
+      />
+      <HomeStack.Screen
+        name={SETTINGS}
+        component={Settings}
+        options={{
+          headerTitleAlign: 'center',
+        }}
+      />
     </HomeStack.Navigator>
   );
 };

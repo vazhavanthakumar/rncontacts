@@ -7,17 +7,17 @@ import {
   ActivityIndicator,
   Image,
 } from 'react-native';
-import {Colors} from 'react-native/Libraries/NewAppScreen';
 import colors from '../../assets/themes/colors';
 import AppModal from '../common/AppModal';
-import CustomButton from '../common/CustomButton';
 import Icon from '../common/icon';
 import Message from '../common/Message';
 import styles from './styles';
 import Container from '../common/Container';
-import {color} from 'react-native-reanimated';
+import {useNavigation} from '@react-navigation/native';
+import {CREATE_CONTACT} from '../../constants/RouteNames';
 
 const ContactsComponent = ({modalVisible, setModalVisible, data, loading}) => {
+  const {navigate} = useNavigation();
   const listEmptyComponent = () => {
     return (
       <View style={{paddingVertical: 100, paddingHorizontal: 100}}>
@@ -27,7 +27,6 @@ const ContactsComponent = ({modalVisible, setModalVisible, data, loading}) => {
   };
 
   const renderItem = ({item}) => {
-    console.log('datat item ', item);
     const {contact_picture, first_name, last_name, phone_number} = item;
 
     return (
@@ -50,21 +49,13 @@ const ContactsComponent = ({modalVisible, setModalVisible, data, loading}) => {
                 borderRadius: 45,
               }}>
               {first_name ? (
-                <Text
-                  style={[
-                    styles.name,
-                    {color: colors.white, fontWeight: 'bold'},
-                  ]}>
+                <Text style={[styles.name, {color: colors.white}]}>
                   {first_name[0]}
                 </Text>
               ) : null}
 
               {last_name ? (
-                <Text
-                  style={[
-                    styles.name,
-                    {color: colors.white, fontWeight: 'bold'},
-                  ]}>
+                <Text style={[styles.name, {color: colors.white}]}>
                   {last_name[0]}
                 </Text>
               ) : null}
@@ -85,53 +76,61 @@ const ContactsComponent = ({modalVisible, setModalVisible, data, loading}) => {
   };
 
   return (
-    <View
-      style={{
-        backgroundColor: colors.white,
-      }}>
-      <AppModal
-        title="My Profile"
-        // modalFooter={<></>}
-        modalBody={
-          <View>
-            <Text>hello from modal</Text>
+    <>
+      <View
+        style={{
+          backgroundColor: colors.white,
+        }}>
+        <AppModal
+          title="My Profile"
+          // modalFooter={<></>}
+          modalBody={
+            <View>
+              <Text>hello from modal</Text>
+            </View>
+          }
+          setModalVisible={setModalVisible}
+          modalVisible={modalVisible}
+        />
+
+        {loading && (
+          <View style={{paddingVertical: 100, paddingHorizontal: 100}}>
+            <ActivityIndicator size="large" color={colors.primary} />
           </View>
-        }
-        setModalVisible={setModalVisible}
-        modalVisible={modalVisible}
-      />
+        )}
 
-      {loading && (
-        <View style={{paddingVertical: 100, paddingHorizontal: 100}}>
-          <ActivityIndicator size="large" color={colors.primary} />
-        </View>
-      )}
+        {!loading && (
+          <Container
+            style={{
+              padding: 0,
+              paddingVertical: 10,
+            }}>
+            <FlatList
+              data={data}
+              renderItem={renderItem}
+              keyExtractor={item => String(item.id)}
+              ItemSeparatorComponent={() => (
+                <View
+                  style={{
+                    height: 0.4,
+                    backgroundColor: colors.grey,
+                    marginLeft: 20,
+                    marginRight: 20,
+                  }}></View>
+              )}
+              ListEmptyComponent={listEmptyComponent}
+              ListFooterComponent={<View style={{height: 50}}></View>}
+            />
+          </Container>
+        )}
+      </View>
 
-      {!loading && (
-        <Container
-          style={{
-            padding: 0,
-            paddingVertical: 10,
-          }}>
-          <FlatList
-            data={data}
-            renderItem={renderItem}
-            keyExtractor={item => String(item.id)}
-            ItemSeparatorComponent={() => (
-              <View
-                style={{
-                  height: 0.4,
-                  backgroundColor: colors.grey,
-                  marginLeft: 20,
-                  marginRight: 20,
-                }}></View>
-            )}
-            ListEmptyComponent={listEmptyComponent}
-            ListFooterComponent={<View style={{height: 50}}></View>}
-          />
-        </Container>
-      )}
-    </View>
+      <TouchableOpacity
+        style={styles.fab}
+        onPress={() => navigate(CREATE_CONTACT)}>
+        <Icon name="plus" color={colors.white} size={24} type="entypo" />
+      </TouchableOpacity>
+    </>
   );
 };
 

@@ -1,3 +1,4 @@
+// https://oblador.github.io/react-native-vector-icons/
 import React from 'react';
 import ZocialIcon from 'react-native-vector-icons/Zocial';
 import OcticonIcon from 'react-native-vector-icons/Octicons';
