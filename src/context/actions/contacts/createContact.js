@@ -12,8 +12,9 @@ export default form => dispatch => onSuccess => {
     last_name: form.lastName || '',
     phone_number: form.phoneNumber || '',
     contact_picture: form.contactPicture || null,
-    is_favorite: true,
+    is_favorite: form.isFavourite || false,
   };
+  console.log('reqCreateContact :>> ', reqCreateContact);
   dispatch({
     type: CREATE_CONTACTS_LOADING,
   });

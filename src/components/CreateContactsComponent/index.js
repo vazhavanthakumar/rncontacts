@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, Image} from 'react-native';
+import {View, Text, Image, Switch, TouchableOpacity} from 'react-native';
 import styles from '../CreateContactsComponent/styles';
 import Container from '../common/Container';
 import Input from '../common/input';
@@ -16,12 +16,15 @@ const CreateContactsComponent = ({
   loading,
   error,
   errors,
+  toggleValueChanged,
 }) => {
   return (
     <View style={styles.container}>
       <Container>
         <Image source={{uri: DEFAULT_IMAGE_URI}} style={styles.profileView} />
-        <Text style={styles.chooseText}>Choose Image</Text>
+        <TouchableOpacity>
+          <Text style={styles.chooseText}>Choose Image</Text>
+        </TouchableOpacity>
         <Input
           onChangeText={value => {
             onChangeText({name: 'firstName', value: value});
@@ -72,6 +75,23 @@ const CreateContactsComponent = ({
           error={errors.phoneNumber}
           keyboardType="number-pad"
         />
+
+        <View
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            paddingVertical: 10,
+          }}>
+          <Text style={{fontSize: 14, fontWeight: 'bold'}}>Add Favourites</Text>
+          <Switch
+            trackColor={{false: colors.grey, true: colors.primary}}
+            thumbColor={colors.white}
+            ios_backgroundColor="#3e3e3e"
+            onValueChange={toggleValueChanged}
+            value={form.isFavourite}
+          />
+        </View>
 
         <CustomButton
           loading={loading}
