@@ -4,7 +4,7 @@ export default {
     errors: null,
     loading: false,
   },
-  createContacts: {
+  createContact: {
     data: {},
     errors: null,
     loading: false,

@@ -48,6 +48,7 @@ const Login = () => {
   };
 
   const onSubmit = () => {
+    console.log('form :>> ', form);
     if (!form.userName) {
       setErrors(prev => {
         return {...prev, userName: 'Please add a username'};

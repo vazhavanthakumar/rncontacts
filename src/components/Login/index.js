@@ -20,7 +20,7 @@ const Index = ({
 }) => {
   const [isSecureEntry, setSecureEntry] = useState(false);
   const {navigate} = useNavigation();
-
+  console.log('errors :>> ', errors);
   return (
     <Container>
       <Image
