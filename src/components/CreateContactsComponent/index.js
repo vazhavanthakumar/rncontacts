@@ -7,6 +7,7 @@ import CustomButton from '../common/CustomButton';
 import CountryPicker from 'react-native-country-picker-modal';
 import {DEFAULT_IMAGE_URI} from '../../constants/general';
 import colors from '../../assets/themes/colors';
+import ImagePicker from '../common/ImagePicker';
 
 const CreateContactsComponent = ({
   onChangeText,
@@ -17,12 +18,15 @@ const CreateContactsComponent = ({
   error,
   errors,
   toggleValueChanged,
+  sheetRef,
+  openSheet,
+  closeSheet,
 }) => {
   return (
     <View style={styles.container}>
       <Container>
         <Image source={{uri: DEFAULT_IMAGE_URI}} style={styles.profileView} />
-        <TouchableOpacity>
+        <TouchableOpacity onPress={openSheet}>
           <Text style={styles.chooseText}>Choose Image</Text>
         </TouchableOpacity>
         <Input
@@ -101,6 +105,8 @@ const CreateContactsComponent = ({
           onPress={onSubmit}
         />
       </Container>
+
+      <ImagePicker ref={sheetRef} />
     </View>
   );
 };
