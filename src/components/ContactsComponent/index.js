@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   Image,
+  SafeAreaView,
 } from 'react-native';
 import colors from '../../assets/themes/colors';
 import AppModal from '../common/AppModal';
@@ -100,12 +101,9 @@ const ContactsComponent = ({modalVisible, setModalVisible, data, loading}) => {
         )}
 
         {!loading && (
-          <Container
-            style={{
-              padding: 0,
-              paddingVertical: 10,
-            }}>
+          <SafeAreaView>
             <FlatList
+              style={{paddingVertical: 10}}
               data={data}
               renderItem={renderItem}
               keyExtractor={item => String(item.id)}
@@ -121,7 +119,8 @@ const ContactsComponent = ({modalVisible, setModalVisible, data, loading}) => {
               ListEmptyComponent={listEmptyComponent}
               ListFooterComponent={<View style={{height: 50}}></View>}
             />
-          </Container>
+          </SafeAreaView>
+          // </Container>
         )}
       </View>
 
