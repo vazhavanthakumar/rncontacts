@@ -1,7 +1,12 @@
-import React from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import React, {useEffect, useState} from 'react';
 import SettingsComponent from '../../components/SettingsComponent';
 
 const Settings = () => {
+  const [email, setEmail] = useState();
+  const [modalVisible, setModalVisible] = useState(false);
+  const [sortBy, setSortBy] = useState(null);
+
   const settingsOptions = [
     {
       title: 'My Info',
@@ -15,7 +20,7 @@ const Settings = () => {
     },
     {
       title: 'Default account for new contacts',
-      subTitle: 'email',
+      subTitle: email,
       onPress: () => {},
     },
     {
@@ -25,8 +30,10 @@ const Settings = () => {
     },
     {
       title: 'Sort by',
-      subTitle: 'sortBy',
-      onPress: () => {},
+      subTitle: sortBy,
+      onPress: () => {
+        setModalVisible(true);
+      },
     },
     {
       title: 'Name format',
@@ -55,7 +62,53 @@ const Settings = () => {
     },
   ];
 
-  return <SettingsComponent settingsOptions={settingsOptions} />;
+  const preferences = [
+    {
+      name: 'First name',
+      isSelected: sortBy === 'First name',
+      onPress: () => {
+        saveSettings('sortBy', 'First name');
+        setSortBy('First name');
+        setModalVisible(false);
+      },
+    },
+    {
+      name: 'Last name',
+      isSelected: sortBy === 'Last name',
+      onPress: () => {
+        saveSettings('sortBy', 'Last name');
+        setSortBy('Last name');
+        setModalVisible(false);
+      },
+    },
+  ];
+
+  const saveSettings = (key, value) => {
+    AsyncStorage.setItem(key, value);
+  };
+
+  const getSettings = async () => {
+    const user = await AsyncStorage.getItem('user');
+    setEmail(JSON.parse(user).email);
+
+    const sortPref = await AsyncStorage.getItem('sortBy');
+    if (sortPref) {
+      setSortBy(sortPref);
+    }
+  };
+
+  useEffect(() => {
+    getSettings();
+  }, []);
+
+  return (
+    <SettingsComponent
+      settingsOptions={settingsOptions}
+      modalVisible={modalVisible}
+      setModalVisible={setModalVisible}
+      preferences={preferences}
+    />
+  );
 };
 
 export default Settings;

@@ -25,6 +25,7 @@ export default StyleSheet.create({
 
   title: {
     fontSize: 18,
+    fontWeight: 'bold',
   },
 
   modalBody: {
