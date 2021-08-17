@@ -9,19 +9,17 @@ import {
   SafeAreaView,
 } from 'react-native';
 import colors from '../../assets/themes/colors';
-import AppModal from '../common/AppModal';
 import Icon from '../common/icon';
 import Message from '../common/Message';
 import styles from './styles';
-import Container from '../common/Container';
 import {useNavigation} from '@react-navigation/native';
 import {CREATE_CONTACT} from '../../constants/RouteNames';
 
-const ContactsComponent = ({modalVisible, setModalVisible, data, loading}) => {
+const ContactsComponent = ({data, loading, sortBy}) => {
   const {navigate} = useNavigation();
   const listEmptyComponent = () => {
     return (
-      <View style={{paddingVertical: 100, paddingHorizontal: 100}}>
+      <View style={styles.absoluteView}>
         <Message info message="No contacts found" />
       </View>
     );
@@ -39,16 +37,7 @@ const ContactsComponent = ({modalVisible, setModalVisible, data, loading}) => {
               source={{uri: contact_picture}}
             />
           ) : (
-            <View
-              style={{
-                flexDirection: 'row',
-                width: 45,
-                justifyContent: 'center',
-                height: 45,
-                alignItems: 'center',
-                backgroundColor: colors.grey,
-                borderRadius: 45,
-              }}>
+            <View style={styles.contactView}>
               {first_name ? (
                 <Text style={[styles.name, {color: colors.white}]}>
                   {first_name[0]}
@@ -81,30 +70,41 @@ const ContactsComponent = ({modalVisible, setModalVisible, data, loading}) => {
       <View
         style={{
           backgroundColor: colors.white,
+          flex: 1,
         }}>
-        <AppModal
-          title="My Profile"
-          // modalFooter={<></>}
-          modalBody={
-            <View>
-              <Text>hello from modal</Text>
-            </View>
-          }
-          setModalVisible={setModalVisible}
-          modalVisible={modalVisible}
-        />
-
         {loading && (
-          <View style={{paddingVertical: 100, paddingHorizontal: 100}}>
+          <View style={styles.absoluteView}>
             <ActivityIndicator size="large" color={colors.primary} />
           </View>
         )}
 
+        {!data && listEmptyComponent()}
+        {console.log('sortBy :>> ', sortBy)}
         {!loading && (
           <SafeAreaView>
             <FlatList
               style={{paddingVertical: 10}}
-              data={data}
+              data={
+                sortBy
+                  ? data.sort((a, b) => {
+                      if (sortBy === 'First name') {
+                        if (b.first_name > a.first_name) {
+                          return -1;
+                        } else {
+                          return 1;
+                        }
+                      }
+
+                      if (sortBy === 'Last name') {
+                        if (b.last_name > a.last_name) {
+                          return -1;
+                        } else {
+                          return 1;
+                        }
+                      }
+                    })
+                  : data
+              }
               renderItem={renderItem}
               keyExtractor={item => String(item.id)}
               ItemSeparatorComponent={() => (
@@ -116,11 +116,10 @@ const ContactsComponent = ({modalVisible, setModalVisible, data, loading}) => {
                     marginRight: 20,
                   }}></View>
               )}
-              ListEmptyComponent={listEmptyComponent}
+              // ListEmptyComponent={listEmptyComponent} we are using msg inside view check above line
               ListFooterComponent={<View style={{height: 50}}></View>}
             />
           </SafeAreaView>
-          // </Container>
         )}
       </View>
 

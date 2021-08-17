@@ -13,6 +13,7 @@ const Message = ({
   danger,
   info,
   success,
+  style,
 }) => {
   const [userDismissed, setDismissed] = useState(false);
 
@@ -37,10 +38,18 @@ const Message = ({
   return (
     <>
       {userDismissed ? null : (
-        <View style={[styles.wrapper, {backgroundColor: getBgColor()}]}>
+        <View style={[styles.wrapper, {backgroundColor: getBgColor()}, style]}>
           <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
             {message && (
-              <Text style={{color: colors.white, fontSize: 12}}>{message}</Text>
+              <Text
+                style={{
+                  color: colors.white,
+                  fontSize: 12,
+                  paddingLeft: 10,
+                  paddingRight: 10,
+                }}>
+                {message}
+              </Text>
             )}
             {retry && !typeof onDismiss === 'function' && (
               <TouchableOpacity onPress={retryFn}>

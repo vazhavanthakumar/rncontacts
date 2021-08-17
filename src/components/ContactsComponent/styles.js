@@ -14,6 +14,15 @@ export default StyleSheet.create({
     paddingHorizontal: 20,
     alignItems: 'center',
   },
+  contactView: {
+    flexDirection: 'row',
+    width: 45,
+    justifyContent: 'center',
+    height: 45,
+    alignItems: 'center',
+    backgroundColor: colors.grey,
+    borderRadius: 45,
+  },
   name: {
     fontSize: 17,
   },
@@ -33,5 +42,14 @@ export default StyleSheet.create({
     borderRadius: 55,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  absoluteView: {
+    position: 'absolute',
+    alignItems: 'center',
+    justifyContent: 'center',
+    left: 0,
+    top: 0,
+    right: 0,
+    bottom: 0,
   },
 });
