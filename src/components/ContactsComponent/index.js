@@ -79,7 +79,6 @@ const ContactsComponent = ({data, loading, sortBy}) => {
         )}
 
         {!data && listEmptyComponent()}
-        {console.log('sortBy :>> ', sortBy)}
         {!loading && (
           <SafeAreaView>
             <FlatList

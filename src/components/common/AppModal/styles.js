@@ -16,7 +16,7 @@ export default StyleSheet.create({
   },
 
   headerView: {
-    flexDirection: 'row',
+    flexDirection: 'row-reverse',
     padding: 15,
     alignItems: 'center',
     width: '100%',
@@ -24,8 +24,10 @@ export default StyleSheet.create({
   },
 
   title: {
+    width: '100%',
     fontSize: 18,
     fontWeight: 'bold',
+    paddingLeft: 30,
   },
 
   modalBody: {

@@ -16,9 +16,12 @@ const AppModal = ({
   return (
     <Modal visible={modalVisible} transparent>
       <TouchableOpacity
+        activeOpacity={1}
         onPress={() => {
+          console.log('closeOnTouchOutSide :>> ', closeOnTouchOutSide);
           if (closeOnTouchOutSide) {
             setModalVisible(false);
+          } else {
           }
         }}
         style={styles.wrapper}>
