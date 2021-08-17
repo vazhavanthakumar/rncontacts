@@ -5,12 +5,13 @@ import {
   CONTACTS_DETAILS,
   CREATE_CONTACT,
   SETTINGS,
+  LOGOUT_USER,
 } from '../constants/RouteNames';
 import Contacts from '../screens/Contacts/index';
 import ContactsDetails from '../screens/ContactDetails/index';
 import CreateContacts from '../screens/CreateContact/index';
 import Settings from '../screens/Settings/index';
-import {Text} from 'react-native';
+import Logout from '../screens/Logout';
 
 const HomeNavigator = () => {
   const HomeStack = createStackNavigator();
@@ -44,6 +45,7 @@ const HomeNavigator = () => {
           headerTitleAlign: 'center',
         }}
       />
+      <HomeStack.Screen name={LOGOUT_USER} component={Logout} />
     </HomeStack.Navigator>
   );
 };
