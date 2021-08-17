@@ -8,6 +8,7 @@ import {useNavigation} from '@react-navigation/native';
 import {REGISTER} from '../../constants/RouteNames';
 import colors from '../../assets/themes/colors';
 import Message from '../common/Message';
+import Icon from '../common/icon';
 
 const Index = ({
   justSignedUp,
@@ -20,7 +21,6 @@ const Index = ({
 }) => {
   const [isSecureEntry, setSecureEntry] = useState(false);
   const {navigate} = useNavigation();
-  console.log('errors :>> ', errors);
   return (
     <Container>
       <Image
@@ -61,7 +61,12 @@ const Index = ({
           secureTextEntry={isSecureEntry}
           icon={
             <TouchableOpacity onPress={() => setSecureEntry(prev => !prev)}>
-              <Text>{isSecureEntry ? 'show' : 'hide'}</Text>
+              <Icon
+                style={{marginRight: 10}}
+                name={isSecureEntry ? 'eye' : 'eye-off'}
+                type="ionicon"
+                size={24}
+              />
             </TouchableOpacity>
           }
           iconPosition="right"

@@ -8,6 +8,7 @@ import {useNavigation} from '@react-navigation/native';
 import {LOGIN} from '../../constants/RouteNames';
 import colors from '../../assets/themes/colors';
 import Message from '../../components/common/Message';
+import Icon from '../common/icon';
 
 const Register = ({onSubmit, loading, error, onChange, form, errors}) => {
   const [isSecureEntry, setSecureEntry] = useState(false);
@@ -73,7 +74,12 @@ const Register = ({onSubmit, loading, error, onChange, form, errors}) => {
           secureTextEntry={isSecureEntry}
           icon={
             <TouchableOpacity onPress={() => setSecureEntry(prev => !prev)}>
-              <Text>{isSecureEntry ? 'show' : 'hide'}</Text>
+              <Icon
+                style={{marginRight: 10}}
+                name={isSecureEntry ? 'eye' : 'eye-off'}
+                type="ionicon"
+                size={24}
+              />
             </TouchableOpacity>
           }
           iconPosition="right"
@@ -82,7 +88,6 @@ const Register = ({onSubmit, loading, error, onChange, form, errors}) => {
           }}
           error={errors.password}
         />
-        {console.log('error :>> ', error)}
         <CustomButton
           loading={loading}
           onPress={onSubmit}

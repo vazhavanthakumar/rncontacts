@@ -31,8 +31,10 @@ export default StyleSheet.create({
     paddingLeft: 17,
     color: colors.primary,
     fontSize: 16,
+    fontWeight: 'bold',
   },
   infoText: {
     fontSize: 17,
+    fontWeight: 'bold',
   },
 });
