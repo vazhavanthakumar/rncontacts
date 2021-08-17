@@ -2,7 +2,7 @@ import React from 'react';
 import {SafeAreaView, Image, Text, View, Alert} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import Container from '../../components/common/Container';
-import {SETTINGS} from '../../constants/RouteNames';
+import {LOGIN, SETTINGS} from '../../constants/RouteNames';
 import logoutUser from '../../context/actions/auth/logoutUser';
 import styles from './styles';
 import Icon from '../../components/common/icon/index';

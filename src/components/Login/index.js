@@ -22,79 +22,81 @@ const Index = ({
   const [isSecureEntry, setSecureEntry] = useState(false);
   const {navigate} = useNavigation();
   return (
-    <Container>
-      <Image
-        source={require('../../assets/images/logo.png')}
-        style={styles.logoImage}
-      />
+    <View style={{backgroundColor: colors.white, flex: 1}}>
+      <Container>
+        <Image
+          source={require('../../assets/images/logo.png')}
+          style={styles.logoImage}
+        />
 
-      <View>
-        <Text style={styles.title}>Welcome to RNContacts</Text>
-        <Text style={styles.subTitle}>Please login here</Text>
+        <View>
+          <Text style={styles.title}>Welcome to RNContacts</Text>
+          <Text style={styles.subTitle}>Please login here</Text>
 
-        <View style={styles.form} />
-        {justSignedUp && (
-          <Message
-            success
-            onDismiss={() => {}}
-            message="Account created successfully"
+          <View style={styles.form} />
+          {justSignedUp && (
+            <Message
+              success
+              onDismiss={() => {}}
+              message="Account created successfully"
+            />
+          )}
+          {error?.error && <Message danger onDismiss message={error?.error} />}
+
+          <Input
+            label="Username"
+            placeholder="Enter username"
+            placeholderTextColor={colors.grey}
+            value={form.userName || null}
+            iconPosition="left"
+            onChangeText={value => {
+              onChange({name: 'userName', value});
+            }}
+            error={errors.userName}
           />
-        )}
-        {error?.error && <Message danger onDismiss message={error?.error} />}
 
-        <Input
-          label="Username"
-          placeholder="Enter username"
-          placeholderTextColor={colors.grey}
-          value={form.userName || null}
-          iconPosition="left"
-          onChangeText={value => {
-            onChange({name: 'userName', value});
-          }}
-          error={errors.userName}
-        />
+          <Input
+            label="Password"
+            placeholder="Enter password"
+            placeholderTextColor={colors.grey}
+            secureTextEntry={isSecureEntry}
+            icon={
+              <TouchableOpacity onPress={() => setSecureEntry(prev => !prev)}>
+                <Icon
+                  style={{marginRight: 10}}
+                  name={isSecureEntry ? 'eye' : 'eye-off'}
+                  type="ionicon"
+                  size={24}
+                />
+              </TouchableOpacity>
+            }
+            iconPosition="right"
+            onChangeText={value => {
+              onChange({name: 'password', value});
+            }}
+            error={errors.password}
+          />
 
-        <Input
-          label="Password"
-          placeholder="Enter password"
-          placeholderTextColor={colors.grey}
-          secureTextEntry={isSecureEntry}
-          icon={
-            <TouchableOpacity onPress={() => setSecureEntry(prev => !prev)}>
-              <Icon
-                style={{marginRight: 10}}
-                name={isSecureEntry ? 'eye' : 'eye-off'}
-                type="ionicon"
-                size={24}
-              />
+          <CustomButton
+            loading={loading}
+            disabled={loading}
+            primary
+            title="Submit"
+            onPress={onSubmit}
+          />
+
+          <View style={styles.createSection}>
+            <Text style={styles.infoText}>Need a new Account?</Text>
+            <TouchableOpacity
+              onPress={() => {
+                navigate(REGISTER);
+              }}>
+              <Text style={styles.linkBtn}>Register</Text>
             </TouchableOpacity>
-          }
-          iconPosition="right"
-          onChangeText={value => {
-            onChange({name: 'password', value});
-          }}
-          error={errors.password}
-        />
-
-        <CustomButton
-          loading={loading}
-          disabled={loading}
-          primary
-          title="Submit"
-          onPress={onSubmit}
-        />
-
-        <View style={styles.createSection}>
-          <Text style={styles.infoText}>Need a new Account?</Text>
-          <TouchableOpacity
-            onPress={() => {
-              navigate(REGISTER);
-            }}>
-            <Text style={styles.linkBtn}>Register</Text>
-          </TouchableOpacity>
+          </View>
         </View>
-      </View>
-    </Container>
+      </Container>
+    </View>
   );
 };
 
