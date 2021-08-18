@@ -37,7 +37,6 @@ const AppNavContainer = () => {
     <>
       {authLoaded ? (
         <NavigationContainer ref={navigationRef}>
-          {console.log('isAuthenticated :>> ', isAuthenticated)}
           {isAuthenticated ? <DrawerNavigator /> : <AuthNavigator />}
         </NavigationContainer>
       ) : (

@@ -8,7 +8,6 @@ import getContacts from '../../context/actions/contacts/getContacts';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Contacts = ({navigation}) => {
-  console.log('navigation :>> ', navigation.navigate);
   const {setOptions, toggleDrawer} = useNavigation();
   const [modalVisible, setModalVisible] = useState(false);
   const {

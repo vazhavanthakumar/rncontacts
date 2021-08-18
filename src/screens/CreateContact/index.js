@@ -6,6 +6,7 @@ import {GlobalContext} from '../../context/Provider';
 import {useNavigation} from '@react-navigation/native';
 import {CONTACTS_LIST} from '../../constants/RouteNames';
 import {useRef} from 'react';
+import uploadImage from '../../helpers/uploadImage';
 
 const CreateContacts = () => {
   const {
@@ -19,6 +20,7 @@ const CreateContacts = () => {
   const {navigate} = useNavigation();
   const sheetRef = useRef(null);
   const [localFile, setlocalFile] = useState(null);
+  const [uploading, setUploading] = useState(false);
 
   const onChangeText = ({name, value}) => {
     setForm({...form, [name]: value});
@@ -53,9 +55,23 @@ const CreateContacts = () => {
       ToastAndroid.show('Please add a country code', ToastAndroid.SHORT);
       return;
     }
-    createContact(form)(contactsDispatch)(() => {
-      navigate(CONTACTS_LIST);
-    });
+
+    console.log('localFile :>> ', localFile);
+    console.log('form :>> ', form);
+
+    if (localFile?.size) {
+      setUploading(true);
+      uploadImage(localFile)(url => {
+        setUploading(false);
+        console.log('url :>> ', url);
+        createContact({...form, contactPicture: url})(contactsDispatch)(() => {
+          navigate(CONTACTS_LIST);
+        });
+      })(err => {
+        setUploading(false);
+        console.log('error :>> ', err);
+      });
+    }
   };
 
   const toggleValueChanged = () => {
@@ -86,7 +102,7 @@ const CreateContacts = () => {
       onChangeText={onChangeText}
       onSubmit={onSubmit}
       setForm={setForm}
-      loading={loading}
+      loading={loading || uploading}
       error={error}
       toggleValueChanged={toggleValueChanged}
       errors={errors}

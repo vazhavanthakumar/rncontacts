@@ -15,6 +15,7 @@ export default form => dispatch => onSuccess => {
     is_favorite: form.isFavourite || false,
   };
   console.log('reqCreateContact :>> ', reqCreateContact);
+
   dispatch({
     type: CREATE_CONTACTS_LOADING,
   });
