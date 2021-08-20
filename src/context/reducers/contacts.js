@@ -5,10 +5,52 @@ import {
   CREATE_CONTACTS_LOADING,
   CREATE_CONTACTS_SUCCESS,
   CREATE_CONTACTS_FAIL,
+  DELETE_CONTACT_LOADING,
+  DELETE_CONTACT_SUCCESS,
+  DELETE_CONTACT_FAIL,
 } from '../../constants/actionTypes';
 
 const contacts = (state, {type, payload}) => {
   switch (type) {
+    case DELETE_CONTACT_LOADING:
+      return {
+        ...state,
+        deleteContacts: {
+          ...state.deleteContacts,
+          loading: true,
+          error: null,
+        },
+      };
+
+    case DELETE_CONTACT_SUCCESS:
+      return {
+        ...state,
+        deleteContacts: {
+          ...state.deleteContacts,
+          loading: false,
+          error: null,
+        },
+
+        getContacts: {
+          ...state.getContacts,
+          loading: false,
+          error: null,
+          data: state.getContacts.data.filter(
+            contact => contact.id !== payload,
+          ),
+        },
+      };
+
+    case DELETE_CONTACT_FAIL:
+      return {
+        ...state,
+        deleteContacts: {
+          ...state.deleteContacts,
+          loading: false,
+          error: null,
+        },
+      };
+
     case CREATE_CONTACTS_LOADING:
       return {
         ...state,
