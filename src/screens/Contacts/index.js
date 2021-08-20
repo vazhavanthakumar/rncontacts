@@ -1,11 +1,13 @@
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
-import React, {useContext, useState, useEffect} from 'react';
+import React, {useContext, useState, useEffect, useRef} from 'react';
 import {TouchableOpacity} from 'react-native';
 import Icon from '../../components/common/icon/index';
 import ContactsComponent from '../../components/ContactsComponent';
 import {GlobalContext} from '../../context/Provider';
 import getContacts from '../../context/actions/contacts/getContacts';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {navigate} from '../../navigations/SideMenu/RootNavigator';
+import {CONTACTS_DETAILS} from '../../constants/RouteNames';
 
 const Contacts = ({navigation}) => {
   const {setOptions, toggleDrawer} = useNavigation();
@@ -17,6 +19,7 @@ const Contacts = ({navigation}) => {
     },
   } = useContext(GlobalContext);
   const [sortBy, setSortBy] = useState(null);
+  const contactsRef = useRef([]);
 
   useEffect(() => {
     getContacts()(contactsDispatch);
@@ -28,6 +31,22 @@ const Contacts = ({navigation}) => {
       setSortBy(sortPref);
     }
   };
+
+  useEffect(() => {
+    const previous = contactsRef.current;
+
+    contactsRef.current = data;
+
+    const newList = contactsRef.current;
+
+    if (newList.length - previous.length === 1) {
+      const newContacts = newList.find(
+        contact => !previous.map(i => i.id).includes(contact.id),
+      );
+      navigate(CONTACTS_DETAILS, {item: newContacts});
+      console.log('newContacts :>> ', newContacts);
+    }
+  }, [data.length]);
 
   useFocusEffect(
     React.useCallback(() => {

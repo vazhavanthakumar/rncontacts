@@ -30,12 +30,12 @@ const contacts = (state, {type, payload}) => {
           data: payload,
         },
 
-        // getContacts: {
-        //   ...state.getContacts,
-        //   loading: false,
-        //   error: null,
-        //   data: [payload, ...state.getContacts.data],
-        // },
+        getContacts: {
+          ...state.getContacts,
+          loading: false,
+          error: null,
+          data: [payload, ...state.getContacts.data],
+        },
       };
 
     case CREATE_CONTACTS_FAIL:
