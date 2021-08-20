@@ -13,7 +13,7 @@ import Icon from '../common/icon';
 import Message from '../common/Message';
 import styles from './styles';
 import {useNavigation} from '@react-navigation/native';
-import {CREATE_CONTACT} from '../../constants/RouteNames';
+import {CONTACTS_DETAILS, CREATE_CONTACT} from '../../constants/RouteNames';
 
 const ContactsComponent = ({data, loading, sortBy}) => {
   const {navigate} = useNavigation();
@@ -29,7 +29,11 @@ const ContactsComponent = ({data, loading, sortBy}) => {
     const {contact_picture, first_name, last_name, phone_number} = item;
 
     return (
-      <TouchableOpacity style={styles.itemContainer}>
+      <TouchableOpacity
+        style={styles.itemContainer}
+        onPress={() => {
+          navigate(CONTACTS_DETAILS, {item});
+        }}>
         <View style={styles.item}>
           {contact_picture ? (
             <Image
