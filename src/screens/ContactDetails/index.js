@@ -1,18 +1,21 @@
 import {useNavigation, useRoute} from '@react-navigation/native';
-import React, {useContext, useEffect} from 'react';
+import React, {useContext, useEffect, useRef, useState} from 'react';
 import {
   View,
   Text,
   TouchableOpacity,
   Alert,
   ActivityIndicator,
+  ToastAndroid,
 } from 'react-native';
 import colors from '../../assets/themes/colors';
 import Icon from '../../components/common/icon';
 import ContactDetailComponent from '../../components/ContactDetailComponent';
-import {CONTACTS_LIST} from '../../constants/RouteNames';
+import {CONTACTS_DETAILS, CONTACTS_LIST} from '../../constants/RouteNames';
 import deleteContact from '../../context/actions/contacts/deleteContact';
+import editContact from '../../context/actions/contacts/editContact';
 import {GlobalContext} from '../../context/Provider';
+import uploadImage from '../../helpers/uploadImage';
 import {navigate} from '../../navigations/SideMenu/RootNavigator';
 
 const ContactsDetails = () => {
@@ -24,6 +27,55 @@ const ContactsDetails = () => {
       deleteContacts: {loading},
     },
   } = useContext(GlobalContext);
+  const sheetRef = useRef(null);
+  const [localFile, setlocalFile] = useState(null);
+  const [updatingImage, setupdatingImage] = useState(false);
+
+  const closeSheet = () => {
+    if (sheetRef.current) {
+      sheetRef.current.close();
+    }
+  };
+
+  const openSheet = () => {
+    if (sheetRef.current) {
+      sheetRef.current.open();
+    }
+  };
+
+  const onFileSelected = image => {
+    console.log('images :>> ', image);
+    closeSheet();
+    setlocalFile(image);
+    setupdatingImage(true);
+
+    uploadImage(image)(url => {
+      const {
+        first_name: firstName,
+        last_name: lastName,
+        phone_number: phoneNumber,
+        country_code: countryCode,
+        is_favorite: isFavorite,
+      } = item;
+      editContact(
+        {
+          firstName,
+          lastName,
+          phoneNumber,
+          isFavorite,
+          countryCode,
+          contactPicture: url,
+        },
+        item.id,
+      )(contactsDispatch)(item => {
+        setupdatingImage(false);
+        ToastAndroid.show('Image uploaded successfuly', ToastAndroid.SHORT);
+      });
+    })(err => {
+      console.log('err :>> ', err);
+      setupdatingImage(false);
+    });
+  };
 
   useEffect(() => {
     if (item) {
@@ -85,7 +137,16 @@ const ContactsDetails = () => {
     }
   }, [item, loading]);
 
-  return <ContactDetailComponent contact={item} />;
+  return (
+    <ContactDetailComponent
+      contact={item}
+      sheetRef={sheetRef}
+      openSheet={openSheet}
+      onFileSelected={onFileSelected}
+      localFile={localFile}
+      updatingImage={updatingImage}
+    />
+  );
 };
 
 export default ContactsDetails;
