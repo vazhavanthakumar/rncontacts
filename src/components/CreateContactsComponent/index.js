@@ -24,11 +24,12 @@ const CreateContactsComponent = ({
   onFileSelected,
   localFile,
 }) => {
+  console.log('form.countryCode :>> ', form.countryCode);
   return (
     <View style={styles.container}>
       <Container>
         <Image
-          source={{uri: localFile?.path || DEFAULT_IMAGE_URI}}
+          source={{uri: localFile?.path || localFile || DEFAULT_IMAGE_URI}}
           style={styles.profileView}
         />
         <TouchableOpacity onPress={openSheet}>
@@ -52,7 +53,7 @@ const CreateContactsComponent = ({
           placeholder="Enter last name"
           placeholderTextColor={colors.grey}
           error={errors.lastName}
-          value={form.lastName || null}
+          value={form.lastName || ''}
         />
         <Input
           icon={
@@ -65,7 +66,6 @@ const CreateContactsComponent = ({
               withCallingCodeButton
               withEmoji
               onSelect={code => {
-                console.log('code', code);
                 const phoneCode = code.callingCode[0];
                 const countryCode = code.cca2;
                 setForm({...form, phoneCode, countryCode: countryCode});
@@ -80,7 +80,7 @@ const CreateContactsComponent = ({
           onChangeText={value => {
             onChangeText({name: 'phoneNumber', value: value});
           }}
-          value={form.phoneNumber || null}
+          value={form.phoneNumber || ''}
           error={errors.phoneNumber}
           keyboardType="number-pad"
         />

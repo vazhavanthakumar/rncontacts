@@ -1,23 +1,17 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  TouchableOpacity,
-  ScrollView,
-  ActivityIndicator,
-} from 'react-native';
+import {View, Text, TouchableOpacity, ScrollView} from 'react-native';
 import colors from '../../assets/themes/colors';
 import Icon from '../common/icon';
 import styles from './styles';
 import ImageComponent from './ImageComponent';
 import CustomButton from '../common/CustomButton';
-import navigate from '../../navigations/SideMenu/RootNavigator';
 import {CREATE_CONTACT} from '../../constants/RouteNames';
+import {useNavigation} from '@react-navigation/native';
 
 const ContactDetailComponent = ({contact, loading}) => {
   const {contact_picture, first_name, last_name, phone_number} = contact;
+  const {navigate} = useNavigation();
 
-  console.log('loading :>> ', loading);
   return (
     <View
       style={{
@@ -96,7 +90,7 @@ const ContactDetailComponent = ({contact, loading}) => {
             primary
             title="Edit Contact"
             onPress={() => {
-              // navigate(CREATE_CONTACT, {contact, editing: true});
+              navigate(CREATE_CONTACT, {contact, editing: true});
             }}
           />
         </View>

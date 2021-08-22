@@ -37,7 +37,7 @@ const ContactsDetails = () => {
                 paddingEnd: 10,
                 alignItems: 'center',
               }}>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={() => {}}>
                 <Icon
                   size={24}
                   // color={colors.grey}
