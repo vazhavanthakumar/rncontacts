@@ -1,5 +1,5 @@
 import React from 'react';
-import {SafeAreaView, Image, Text, View, Alert} from 'react-native';
+import {SafeAreaView, Image, Text, View, Alert, ScrollView} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import Container from '../../components/common/Container';
 import {
@@ -13,6 +13,7 @@ import logoutUser from '../../context/actions/auth/logoutUser';
 import styles from './styles';
 import Icon from '../../components/common/icon/index';
 import MaterialIcons from '../../components/common/icon/index';
+import colors from '../../assets/themes/colors';
 
 const SideMenu = ({navigation, authDispatch}) => {
   const handleLogout = () => {
@@ -62,7 +63,7 @@ const SideMenu = ({navigation, authDispatch}) => {
 
   return (
     <SafeAreaView>
-      <Container>
+      <ScrollView>
         <Image
           height={70}
           width={70}
@@ -70,20 +71,31 @@ const SideMenu = ({navigation, authDispatch}) => {
           style={styles.logoImage}
         />
 
-        <View style={{}}>
+        <View>
+          <View
+            style={{
+              height: 0.4,
+              backgroundColor: colors.grey,
+            }}
+          />
           {menuItems.map(({icon, name, onPress}) => {
             return (
-              <TouchableOpacity
-                onPress={onPress}
-                key={name}
-                style={styles.item}>
-                {icon}
-                <Text style={styles.itemText}>{name}</Text>
+              <TouchableOpacity onPress={onPress} key={name}>
+                <View style={styles.item}>
+                  {icon}
+                  <Text style={styles.itemText}>{name}</Text>
+                </View>
+                <View
+                  style={{
+                    height: 0.4,
+                    backgroundColor: colors.grey,
+                  }}
+                />
               </TouchableOpacity>
             );
           })}
         </View>
-      </Container>
+      </ScrollView>
     </SafeAreaView>
   );
 };

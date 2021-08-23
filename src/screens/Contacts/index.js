@@ -32,6 +32,7 @@ const Contacts = ({navigation}) => {
 
   const getSettings = async () => {
     const sortPref = await AsyncStorage.getItem('sortBy');
+    console.log('sortPref contacts :>> ', sortPref);
     if (sortPref) {
       setSortBy(sortPref);
     }

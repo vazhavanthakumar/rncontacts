@@ -92,6 +92,7 @@ const Settings = () => {
     setEmail(JSON.parse(user).email);
 
     const sortPref = await AsyncStorage.getItem('sortBy');
+    console.log('sortPref :>> ', sortPref);
     if (sortPref) {
       setSortBy(sortPref);
     }

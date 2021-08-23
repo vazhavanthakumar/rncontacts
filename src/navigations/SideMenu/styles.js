@@ -12,6 +12,8 @@ export default StyleSheet.create({
     flexDirection: 'row',
     // justifyContent: 'center',
     alignItems: 'center',
+    paddingVertical: 5,
+    paddingHorizontal: 20,
   },
   itemText: {
     fontSize: 17,
