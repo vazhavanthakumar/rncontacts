@@ -7,6 +7,7 @@ import {ActivityIndicator} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {navigationRef} from './SideMenu/RootNavigator';
 import SplashScreen from 'react-native-splash-screen';
+import HomeNavigator from './HomeNavigator';
 
 const AppNavContainer = () => {
   const {
@@ -31,6 +32,7 @@ const AppNavContainer = () => {
   };
 
   useEffect(() => {
+    console.log('isLoggedIn called:>> ', isLoggedIn);
     getUser();
   }, [isLoggedIn]);
 
@@ -42,11 +44,12 @@ const AppNavContainer = () => {
     }
   }, [authLoaded]);
 
+  console.log('authLoaded, isAuthenticated :>> ', authLoaded, isAuthenticated);
   return (
     <>
       {authLoaded ? (
         <NavigationContainer ref={navigationRef}>
-          {isAuthenticated ? <DrawerNavigator /> : <AuthNavigator />}
+          {isAuthenticated ? <HomeNavigator /> : <AuthNavigator />}
         </NavigationContainer>
       ) : (
         <ActivityIndicator />

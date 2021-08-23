@@ -2,7 +2,13 @@ import React from 'react';
 import {SafeAreaView, Image, Text, View, Alert} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import Container from '../../components/common/Container';
-import {LOGIN, SETTINGS} from '../../constants/RouteNames';
+import {
+  CONTACTS_LIST,
+  CREATE_CONTACT,
+  HOME_NAVIGATOR,
+  LOGIN,
+  SETTINGS,
+} from '../../constants/RouteNames';
 import logoutUser from '../../context/actions/auth/logoutUser';
 import styles from './styles';
 import Icon from '../../components/common/icon/index';
@@ -27,14 +33,28 @@ const SideMenu = ({navigation, authDispatch}) => {
 
   const menuItems = [
     {
-      icon: <Icon type="ionicon" name="settings-outline" />,
+      icon: <Icon type="ant" name="contacts" size={20} />,
+      name: 'Contacts',
+      onPress: () => {
+        navigation.navigate(CONTACTS_LIST);
+      },
+    },
+    {
+      icon: <Icon type="ionicon" name="create-outline" size={20} />,
+      name: 'Create Contact',
+      onPress: () => {
+        navigation.navigate(CREATE_CONTACT);
+      },
+    },
+    {
+      icon: <Icon type="ionicon" name="settings-outline" size={20} />,
       name: 'Settings',
       onPress: () => {
         navigation.navigate(SETTINGS);
       },
     },
     {
-      icon: <MaterialIcons type="material" name="logout" />,
+      icon: <MaterialIcons type="material" name="logout" size={20} />,
       name: 'Logout',
       onPress: () => handleLogout(),
     },
@@ -50,7 +70,7 @@ const SideMenu = ({navigation, authDispatch}) => {
           style={styles.logoImage}
         />
 
-        <View style={{marginHorizontal: 70}}>
+        <View style={{}}>
           {menuItems.map(({icon, name, onPress}) => {
             return (
               <TouchableOpacity

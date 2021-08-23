@@ -15,7 +15,7 @@ const DrawerNavigator = () => {
   const {authDispatch} = useContext(GlobalContext);
   return (
     <Drawer.Navigator
-      drawerType={'slide'}
+      drawerType={'front'}
       drawerContent={({navigation}) =>
         getDrawerNavigation(navigation, authDispatch)
       }>

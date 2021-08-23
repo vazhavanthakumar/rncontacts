@@ -1,6 +1,10 @@
-import {useFocusEffect, useNavigation} from '@react-navigation/native';
+import {
+  useFocusEffect,
+  useNavigation,
+  useRoute,
+} from '@react-navigation/native';
 import React, {useContext, useState, useEffect, useRef} from 'react';
-import {TouchableOpacity} from 'react-native';
+import {Alert, BackHandler, TouchableOpacity} from 'react-native';
 import Icon from '../../components/common/icon/index';
 import ContactsComponent from '../../components/ContactsComponent';
 import {GlobalContext} from '../../context/Provider';
@@ -20,6 +24,7 @@ const Contacts = ({navigation}) => {
   } = useContext(GlobalContext);
   const [sortBy, setSortBy] = useState(null);
   const contactsRef = useRef([]);
+  const route = useRoute();
 
   useEffect(() => {
     getContacts()(contactsDispatch);
@@ -75,6 +80,28 @@ const Contacts = ({navigation}) => {
       },
     });
   }, []);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      const onBackPress = () => {
+        if (route.name === 'Contacts') {
+          Alert.alert('Alert!', 'Are you sure you want to exit the app', [
+            {text: 'Cancel'},
+            {text: 'Yes', onPress: () => BackHandler.exitApp()},
+          ]);
+          return true;
+        } else {
+          return false;
+        }
+      };
+
+      BackHandler.addEventListener('hardwareBackPress', onBackPress);
+
+      return () =>
+        BackHandler.removeEventListener('hardwareBackPress', onBackPress);
+    }, []),
+  );
+
   return (
     <ContactsComponent
       modalVisible={modalVisible}
