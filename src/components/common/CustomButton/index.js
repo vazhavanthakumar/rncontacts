@@ -13,8 +13,6 @@ const CustomButton = ({
   loading,
   onPress,
 }) => {
-  const [focused, setFocused] = useState(false);
-
   const getBgColor = () => {
     if (disabled) {
       return colors.grey;
@@ -50,7 +48,7 @@ const CustomButton = ({
               color: disabled ? 'black' : 'white',
               paddingLeft: loading ? 5 : 0,
             }}>
-            {title}
+            {loading ? 'Please wait...' : title}
           </Text>
         )}
       </View>
