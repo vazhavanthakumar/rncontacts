@@ -113,7 +113,7 @@ const ContactsComponent = ({data, loading, sortBy}) => {
               ItemSeparatorComponent={() => (
                 <View
                   style={{
-                    height: 0.4,
+                    height: 1,
                     backgroundColor: colors.grey,
                     marginLeft: 20,
                     marginRight: 20,

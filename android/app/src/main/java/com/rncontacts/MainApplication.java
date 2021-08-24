@@ -2,6 +2,7 @@ package com.vazhavanthakumar.rncontacts;
 
 import android.content.Context;
 
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.multidex.MultiDexApplication;
 
 import com.facebook.react.PackageList;
@@ -48,6 +49,7 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
         super.onCreate();
         SoLoader.init(this, /* native exopackage */ false);
         initializeFlipper(this, getReactNativeHost().getReactInstanceManager());
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
     }
 
     /**

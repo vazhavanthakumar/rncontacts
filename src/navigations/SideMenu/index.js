@@ -87,7 +87,7 @@ const SideMenu = ({navigation, authDispatch}) => {
                 </View>
                 <View
                   style={{
-                    height: 0.4,
+                    height: 1,
                     backgroundColor: colors.grey,
                   }}
                 />
